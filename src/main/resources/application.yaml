@@ -6,7 +6,7 @@ spring:
     name: auth-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/authdb
+    url: ${DB_URL}
     username: ${DB_USER}
     password: ${DB_PASS}
     driver-class-name: org.postgresql.Driver
@@ -19,7 +19,27 @@ spring:
       hibernate:
         format_sql: true
 
+  jwt:
+    secret-key: ${JWT_SECRET}
+    refresh-expiration: ${JWT_REFRESH_EXPIRATION}
+    access-expiration: ${JWT_ACCESS_EXPIRATION}
+
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_DEFAULT_ZONE}
+resilience4j:
+  circuitbreaker:
+    instances:
+      ebookService:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 3
+  retry:
+    instances:
+      ebookService:
+        maxAttempts: 3
+        waitDuration: 2s
