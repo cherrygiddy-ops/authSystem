@@ -11,11 +11,12 @@ import javax.crypto.SecretKey;
 @Data
 @ConfigurationProperties(prefix = "spring.jwt")
 public class JwtConfig {
-    private String secretKey ="Z9ANoDmEsyk0hMF6hTBTDZoEuZlzqohFlcnxroo5XTSur7kDgq3Tmn8J+s/CfnCDERvRPIdXOtFxyRcdqcLQsQ==";
-    private int refreshExpiration=604800000;
-    private int accessExpiration=86400000;
+    private String secretKey;
+    private int refreshExpiration;
+    private int accessExpiration;
 
     public SecretKey getSecretKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 }
+

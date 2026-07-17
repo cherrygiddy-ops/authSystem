@@ -1,6 +1,7 @@
 package com.authservice.system.users;
 
 
+import com.authservice.system.auth.InvalidTokenException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class UserService {
     public String verify(String token) {
         var user = repository.findByVerificationToken(token).orElseThrow(UserNotFoundException::new);
         if (user.getVerificationtokenExpiry().isBefore(LocalDateTime.now())) {
-            throw new com.partnerpublisherportal.partnerpublisherportal.auth.InvalidTokenException();
+            throw new InvalidTokenException();
         }
 
         user.setVerified(true);
