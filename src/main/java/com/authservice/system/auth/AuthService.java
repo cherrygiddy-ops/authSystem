@@ -27,17 +27,24 @@ public class AuthService {
          return repository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
     public CurrentUserResponseDto getCurrentUserResponse() {
-        var principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = authentication.getPrincipal();
 
         if ("anonymousUser".equals(principal)) {
             throw new UserNotFoundException();
         }
 
-        var userId = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
-        var user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
+        String userId = (String) principal;
+        var user = repository.findById(Long.valueOf(userId))
+                .orElseThrow(UserNotFoundException::new);
+
         return loginMapper.toDto(user);
 
+
     }
+
+
+
     public Jwt getJwt(LoginRequestDto requestDto, HttpServletResponse response) throws AccountNotVerifiedException {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword()));
 

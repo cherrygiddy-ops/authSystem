@@ -22,32 +22,33 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        var authHeader=request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")){
-            filterChain.doFilter(request,response);
+        var authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
             return;
         }
 
-        var token = authHeader.replace("Bearer ","");
-        var jwt=service.parseToken(token);
-        if(jwt == null ||jwt.isExpired()){
-            filterChain.doFilter(request,response);
+        var token = authHeader.replace("Bearer ", "");
+        var jwt = service.parseToken(token);
+        if (jwt == null || jwt.isExpired()) {
+            filterChain.doFilter(request, response);
             return;
         }
 
-        var role =jwt.getRole();
-        var userId = jwt.getUserId();
-        var authenticationMnager = new UsernamePasswordAuthenticationToken(
-                jwt,
-                null,
-                List.of(new SimpleGrantedAuthority("ROLE_" + jwt.getRole()))
+        var role = jwt.getRole(); // e.g. "ADMIN"
+        var userId = jwt.getUserId(); // principal
+
+        var authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
+
+        var authentication = new UsernamePasswordAuthenticationToken(
+                userId.toString(), // principal
+                token,
+                authorities
         );
 
-        authenticationMnager.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        SecurityContextHolder.getContext().setAuthentication(authenticationMnager);
-
-        filterChain.doFilter(request,response);
-
+        filterChain.doFilter(request, response);
     }
-}
+    }

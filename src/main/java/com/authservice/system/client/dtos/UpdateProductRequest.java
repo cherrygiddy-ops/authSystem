@@ -1,0 +1,16 @@
+package com.authservice.system.client.dtos;
+
+import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.math.BigDecimal;
+
+@Data
+public class UpdateProductRequest {
+    private String name;
+    private String descriptions;
+    private Integer quantity;
+    private BigDecimal price;
+    private Byte categoryId;
+    private MultipartFile image;
+}

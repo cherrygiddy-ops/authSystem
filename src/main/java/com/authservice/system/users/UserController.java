@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 @AllArgsConstructor
 @RestController
-@RequestMapping("/partnerpublisherportal/users")
+@RequestMapping("/auth/users")
 public class UserController {
     private final UserService service;
 

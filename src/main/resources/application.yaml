@@ -15,19 +15,27 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          secret-key: ${JWT_SECRET}
 
   jwt:
     secret-key: ${JWT_SECRET}
     refresh-expiration: ${JWT_REFRESH_EXPIRATION}
     access-expiration: ${JWT_ACCESS_EXPIRATION}
 
+  config:
+    import: optional:dotenv
+
+
 eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_DEFAULT_ZONE}
+
 resilience4j:
   circuitbreaker:
     instances:

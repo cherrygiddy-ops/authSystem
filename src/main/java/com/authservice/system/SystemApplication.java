@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = "com.partnerpublisherportal.partnerpublisherportal.client")
+@EnableFeignClients(basePackages = "com.authservice.system.client")
 public class SystemApplication {
 
 	public static void main(String[] args) {
