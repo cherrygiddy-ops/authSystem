@@ -2,6 +2,7 @@ package com.authservice.system.client.controllers;
 
 import com.authservice.system.client.clients.OrderServiceClient;
 import com.authservice.system.client.dtos.OrderResponseDto;
+import com.authservice.system.client.services.AuthOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,14 +13,16 @@ import java.util.List;
 @RequestMapping("/auth/orders")
 public class AuthOrdersController {
 
-    private final OrderServiceClient orderServiceClient;
+    private final AuthOrderService authOrderService;
 
-    // Order endpoints
-    public List<OrderResponseDto> getOrdersByCustomer(String customerId) {
-        return orderServiceClient.getOrdersByCustomer(customerId);
+
+    @GetMapping("/{orderId}")
+    public OrderResponseDto getOrderById(@PathVariable Long orderId) {
+        return authOrderService.getOrderById(orderId);
     }
 
-    public OrderResponseDto getOrderById(String orderId) {
-        return orderServiceClient.getOrderById(orderId);
+    @GetMapping
+    public List<OrderResponseDto> getAllOrders() {
+        return authOrderService.getAllOrders();
     }
 }

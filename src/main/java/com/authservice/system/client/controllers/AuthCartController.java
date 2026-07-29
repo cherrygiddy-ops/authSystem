@@ -1,9 +1,6 @@
 package com.authservice.system.client.controllers;
 
-import com.authservice.system.client.dtos.AddToCartRequest;
-import com.authservice.system.client.dtos.CartItemsDto;
-import com.authservice.system.client.dtos.CartResponseDto;
-import com.authservice.system.client.dtos.UpdateCartItemRequest;
+import com.authservice.system.client.dtos.*;
 import com.authservice.system.client.services.AuthCartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -57,5 +54,7 @@ public class AuthCartController {
         authCartService.clearCart(cartId);
         return ResponseEntity.noContent().build();
     }
+
+
 }
 

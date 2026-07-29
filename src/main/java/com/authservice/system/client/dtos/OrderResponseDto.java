@@ -1,6 +1,7 @@
 package com.authservice.system.client.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Data
 public class OrderResponseDto {
-    private String orderId;
+    private Long orderId;
     private String paymentStatus;;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime orderDate;

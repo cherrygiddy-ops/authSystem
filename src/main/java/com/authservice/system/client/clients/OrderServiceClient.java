@@ -6,9 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
-
 import java.util.List;
-import java.util.UUID;
 
 @FeignClient(name = "order-service", path = "/orders")
 public interface OrderServiceClient {
@@ -36,12 +34,6 @@ public interface OrderServiceClient {
             @RequestBody UpdateProductRequest request
     );
 
-    // Orders
-    @GetMapping("/customer/{customerId}")
-    List<OrderResponseDto> getOrdersByCustomer(@PathVariable("customerId") String customerId);
-
-    @GetMapping("/orders/{orderId}")
-    OrderResponseDto getOrderById(@PathVariable("orderId") String orderId);
 
     // Carts
 
@@ -67,6 +59,18 @@ public interface OrderServiceClient {
 
         @DeleteMapping("/carts/{cartId}/items")
         void clearCart(@PathVariable("cartId") String cartId);
+
+    @PostMapping("/checkout")
+    CheckoutResponseDto checkout(@RequestBody CheckoutRequestDto requestDto);
+
+    @PutMapping("/{orderId}/status/paid")
+    CheckoutResponseDto markOrderAsPaid(@PathVariable("orderId") Long orderId);
+
+    @GetMapping()
+    List<OrderResponseDto> getAllOrders();
+
+    @GetMapping("/{orderId}")
+    OrderResponseDto getOrderById(@PathVariable("orderId") Long orderId);
 
 }
 
