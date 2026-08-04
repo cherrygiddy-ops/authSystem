@@ -34,9 +34,14 @@ jobs:
             cd /app/hotelpos-deployment
             git pull origin main
 
-            # Redeploy only the authservice container
-            docker compose pull authservice
-            docker compose up -d authservice
+            # Write JWT secrets into .env
+            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" > .env
+            echo "JWT_REFRESH_EXPIRATION=${{ secrets.JWT_REFRESH_EXPIRATION }}" >> .env
+            echo "JWT_ACCESS_EXPIRATION=${{ secrets.JWT_ACCESS_EXPIRATION }}" >> .env
+
+            # Redeploy only the authservice container with env-file
+            docker compose --env-file .env pull authservice
+            docker compose --env-file .env up -d authservice
 
             # Show container status
             docker compose ps
