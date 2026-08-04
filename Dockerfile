@@ -12,7 +12,7 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-COPY --from=build /app/target/authservice.jar /app/application.jar
+COPY --from=build /app/target/system-0.0.1-SNAPSHOT.jar /app/application.jar
 
 ENV SPRING_PROFILES_ACTIVE=prod
 EXPOSE 8080
