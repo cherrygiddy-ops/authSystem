@@ -34,8 +34,14 @@ jobs:
             cd /app/hotelpos-deployment
             git pull origin main
 
-            # Write JWT secrets into .env
-            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" > .env
+            # Write Postgres + JWT secrets into .env
+            echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" > .env
+            echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+            echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+            echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
+            echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+
+            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
             echo "JWT_REFRESH_EXPIRATION=${{ secrets.JWT_REFRESH_EXPIRATION }}" >> .env
             echo "JWT_ACCESS_EXPIRATION=${{ secrets.JWT_ACCESS_EXPIRATION }}" >> .env
 
