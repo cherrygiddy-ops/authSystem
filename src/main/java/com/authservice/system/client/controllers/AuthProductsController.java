@@ -39,14 +39,14 @@ public class AuthProductsController {
     }
 
     @DeleteMapping("/{productId}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Integer productId) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable String productId) {
         orderServiceClient.deleteProduct(productId);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{productId}")
     public ResponseEntity<ProductsResponseDto> updateProduct(
-            @PathVariable Integer productId,
+            @PathVariable String productId,
             @RequestBody UpdateProductRequest request) {
         return ResponseEntity.ok(orderServiceClient.updateProduct(productId, request));
     }

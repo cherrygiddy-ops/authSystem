@@ -12,5 +12,5 @@ public class UpdateProductRequest {
     private Integer quantity;
     private BigDecimal price;
     private Byte categoryId;
-    private MultipartFile image;
+
 }

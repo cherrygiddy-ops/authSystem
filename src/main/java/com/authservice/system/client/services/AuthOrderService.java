@@ -2,6 +2,7 @@ package com.authservice.system.client.services;
 
 import com.authservice.system.client.clients.OrderServiceClient;
 import com.authservice.system.client.dtos.OrderResponseDto;
+import com.authservice.system.client.dtos.OrderSummaryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,7 @@ public class AuthOrderService {
     public OrderResponseDto getOrderById(Long orderId) {
         return orderServiceClient.getOrderById(orderId);
     }
-
+    public OrderSummaryDto getOrderSummary() {
+        return orderServiceClient.getOrderSummary();
+    }
 }

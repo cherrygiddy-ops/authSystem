@@ -2,6 +2,7 @@ package com.authservice.system.client.controllers;
 
 import com.authservice.system.client.clients.OrderServiceClient;
 import com.authservice.system.client.dtos.OrderResponseDto;
+import com.authservice.system.client.dtos.OrderSummaryDto;
 import com.authservice.system.client.services.AuthOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,5 +25,10 @@ public class AuthOrdersController {
     @GetMapping
     public List<OrderResponseDto> getAllOrders() {
         return authOrderService.getAllOrders();
+    }
+
+    @GetMapping("/summary")
+    public OrderSummaryDto getOrderSummary() {
+        return authOrderService.getOrderSummary();
     }
 }

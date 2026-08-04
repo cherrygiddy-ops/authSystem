@@ -26,39 +26,36 @@ public interface OrderServiceClient {
     );
 
     @DeleteMapping("/products/{productId}")
-    void deleteProduct(@PathVariable("productId") Integer productId);
+    void deleteProduct(@PathVariable("productId") String productId);
 
     @PutMapping("/products/{productId}")
     ProductsResponseDto updateProduct(
-            @PathVariable("productId") Integer productId,
+            @PathVariable("productId") String productId,
             @RequestBody UpdateProductRequest request
     );
 
-
     // Carts
+    @PostMapping("/carts")
+    CartResponseDto createCart();
 
-        @PostMapping("/carts")
-        CartResponseDto createCart();
+    @GetMapping("/carts/{cartId}")
+    CartResponseDto getCartDetails(@PathVariable("cartId") String cartId);
 
-        @GetMapping("/carts/{cartId}")
-        CartResponseDto getCartDetails(@PathVariable("cartId") String cartId);
-
-        @PostMapping("/carts/{cartId}/items")
-        ResponseEntity<CartItemsDto> addToCart(@PathVariable("cartId") String cartId,
-                                               @RequestBody AddToCartRequest request);
+    @PostMapping("/carts/{cartId}/items")
+    ResponseEntity<CartItemsDto> addToCart(@PathVariable("cartId") String cartId,
+                                           @RequestBody AddToCartRequest request);
 
     @PutMapping("/carts/{cartId}/items/{productId}")
     ResponseEntity<CartItemsDto> updateCartItem(@PathVariable("cartId") String cartId,
                                                 @PathVariable("productId") String productId,
                                                 @RequestBody UpdateCartItemRequest request);
 
-
     @DeleteMapping("/carts/{cartId}/items/{productId}")
-        void deleteCartItem(@PathVariable("cartId") String cartId,
-            @PathVariable("productId") String productId);
+    void deleteCartItem(@PathVariable("cartId") String cartId,
+                        @PathVariable("productId") String productId);
 
-        @DeleteMapping("/carts/{cartId}/items")
-        void clearCart(@PathVariable("cartId") String cartId);
+    @DeleteMapping("/carts/{cartId}/items")
+    void clearCart(@PathVariable("cartId") String cartId);
 
     @PostMapping("/checkout")
     CheckoutResponseDto checkout(@RequestBody CheckoutRequestDto requestDto);
@@ -72,5 +69,7 @@ public interface OrderServiceClient {
     @GetMapping("/{orderId}")
     OrderResponseDto getOrderById(@PathVariable("orderId") Long orderId);
 
+    // ✅ New method for order summary
+    @GetMapping("/summary")
+    OrderSummaryDto getOrderSummary();
 }
-
