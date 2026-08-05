@@ -51,3 +51,4 @@ jobs:
 
             # Show container status
             docker compose ps
+
