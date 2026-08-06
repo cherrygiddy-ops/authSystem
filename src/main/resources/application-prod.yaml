@@ -30,7 +30,6 @@ spring:
   config:
     import: optional:dotenv
 
-
 eureka:
   client:
     service-url:
@@ -51,3 +50,12 @@ resilience4j:
       ebookService:
         maxAttempts: 3
         waitDuration: 2s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always

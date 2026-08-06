@@ -7,11 +7,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthSecurityRules implements SecurityRules {
+
     @Override
-    public void config(AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry registry) {
+    public void config(
+            AuthorizeHttpRequestsConfigurer<HttpSecurity>
+                    .AuthorizationManagerRequestMatcherRegistry registry) {
+
+        // Public auth endpoints
         registry.requestMatchers("/auth/login").permitAll();
         registry.requestMatchers("/auth/refresh").permitAll();
+
+        // Health check endpoint for Docker / Nginx / monitoring
+        registry.requestMatchers("/actuator/health").permitAll();
+
+        // Optional: allow all auth endpoints
+        // registry.requestMatchers("/auth/**").permitAll();
     }
-
 }
-
