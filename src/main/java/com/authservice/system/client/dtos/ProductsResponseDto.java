@@ -10,6 +10,6 @@ public class ProductsResponseDto {
     private String descriptions;
     private Integer quantity;
     private BigDecimal price;
-    private Byte categoryId;
+    private String categoryId;
 }
 

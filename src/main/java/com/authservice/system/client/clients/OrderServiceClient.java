@@ -72,4 +72,24 @@ public interface OrderServiceClient {
     // ✅ New method for order summary
     @GetMapping("/summary")
     OrderSummaryDto getOrderSummary();
+
+    // ✅ Categories
+    @PostMapping("/categories")
+    CategoryResponseDto addCategory(@RequestBody String name);
+
+    @GetMapping("/categories")
+    List<CategoryResponseDto> getCategories();
+
+    @GetMapping("/categories/{categoryId}")
+    CategoryResponseDto getCategoryDetails(@PathVariable("categoryId") String categoryId);
+
+    @PutMapping("/categories/{categoryId}")
+    CategoryResponseDto updateCategory(
+            @PathVariable("categoryId") String categoryId,
+            @RequestBody String name
+    );
+
+    @DeleteMapping("/categories/{categoryId}")
+    void deleteCategory(@PathVariable("categoryId") String categoryId);
+
 }
